@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Souled Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e53e3e;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        /* Main Section */
+        .main-section {
+            background: #f5f5f5;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .main-section h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .main-section p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .my-orders-btn {
+            background: #2d7d5e;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .my-orders-btn:hover {
+            background: #245a45;
+        }
+
+        /* Help Section */
+        .help-section {
+            background: #e53e3e;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .help-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .query-dropdown {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .query-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: white;
+            color: #666;
+            cursor: pointer;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #666;
+        }
+
+        .faq-container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .faq-categories {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .faq-category {
+            padding: 15px;
+            margin-bottom: 10px;
+            color: #666;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .faq-category:hover,
+        .faq-category.active {
+            background: #e0e0e0;
+        }
+
+        .faq-category.exclusive {
+            color: #e53e3e;
+        }
+
+        .faq-questions {
+            flex: 2;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .faq-question {
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            color: #333;
+        }
+
+        .faq-arrow {
+            font-size: 20px;
+            color: #ccc;
+        }
+
+        /* Social Section */
+        .social-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: #f9f9f9;
+        }
+
+        .social-section h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .facebook { background: #4267B2; }
+        .instagram { background: #E4405F; }
+        .youtube { background: #FF0000; }
+        .twitter { background: #1DA1F2; }
+
+        /* Brand Section */
+        .brand-section {
+            background: #e53e3e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .customers-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+        }
+
+        .customers-section h2 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .customers-section span {
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f0f0f0;
+            padding: 50px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-column h4 {
+            color: #e53e3e;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .footer-column ul li a:hover {
+            color: #333;
+        }
+
+        .view-more {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer-features {
+            margin-top: 30px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .faq-container {
+                flex-direction: column;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .main-section h1 {
+                font-size: 32px;
+            }
+            
+            .social-icons {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-features {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-menu">
+                <a href="#" style="display: none;">☰</a>
+                <a href="#">MEN</a>
+                <a href="#">WOMEN</a>
+                <a href="#">SNEAKERS</a>
+            </div>
+            
+            <div class="logo">Bleugrade</div>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="What are you looking for?">
+                <button class="search-btn"></button>
+            </div>
+            
+            <div class="header-icons">
+                <span class="icon"><img src="images/Orders icon.png" width="40" height="40" alt=""/></span>
+                <span class="icon"><img src="images/profile icon.png" width="40" height="40" alt=""/></span>
+                <span class="icon"><img src="images/Like Icon.png" width="40" height="40" alt=""/>&nbsp;</span>
+                <span class="icon"><img src="images/Kart icon.png" width="40" height="40" alt=""/>&nbsp;</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section class="main-section">
+        <h1>Manage Your Orders Easily</h1>
+        <p>Track, Return/ Exchange or Cancel your orders hassle-free.</p>
+        <a href="#" class="my-orders-btn">MY ORDERS</a>
+    </section>
+
+    <!-- Help Section -->
+    <section class="help-section">
+        <h2>What can we help you with today?</h2>
+        <div class="query-dropdown">
+            <select class="query-select">
+                <option>Please select your query</option>
+                <option>Track my order</option>
+                <option>Return/Exchange</option>
+                <option>Cancel order</option>
+                <option>Payment issues</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2>FAQs</h2>
+        <div class="faq-container">
+            <div class="faq-categories">
+                <div class="faq-category active">RETURNS, EXCHANGE & REFUND</div>
+                <div class="faq-category">MISCELLANEOUS</div>
+                <div class="faq-category">ORDERS & PAYMENT</div>
+                <div class="faq-category">SHIPPING & TRACKING</div>
+                <div class="faq-category exclusive">EXCLUSIVE MEMBERSHIP</div>
+                <div class="faq-category">SALE TERMS & CONDITIONS</div>
+            </div>
+            
+            <div class="faq-questions">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can we wash custom painted clothes/sneakers?&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is the Cash On Delivery payment mode available for customized shoes/t-shirts?
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I customize the color and style of the design?&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Are there any washcare and ironing instructions I must follow?
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does it take for my customized products to be shipped and delivered?
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        I misspelled something on my customizable shoes, but I have already placed my order. Can I make changes to this?
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is the exchange and return policy on customizable products?
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I get in touch if I have any further questions?
+                        <span class="faq-arrow">⌄</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section class="social-section">
+        <h3>Stay in touch</h3>
+        <div class="social-icons">
+        <img src="images/Fb icon.png" width="60" height="60" alt=""/>           <img src="images/X icon.png" width="60" height="60" alt=""/> <img src="images/Instagram Icon.png" width="60" height="60" alt=""/> </div>
+        
+        <div class="brand-section">
+            HOMEGROWN INDIAN BRAND
+        </div>
+        
+        <div class="customers-section">
+            <h2>Hand Painted custom clothing</h2>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>NEED HELP</h4>
+                <ul>
+                    <li><a href="Bleugrade3.html">Contact Us</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">My Account</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>COMPANY</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Investor Relation</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Gift Vouchers</a></li>
+                    <li><a href="#">Community Initiatives</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>MORE INFO</h4>
+                <ul>
+                    <li><a href="#">T&C</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                    <li><a href="#">Get Notified</a></li>
+                    <li><a href="#">Blogs</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>STORE NEAR ME</h4>
+                <ul>
+                    <li><a href="#">Bhopal</a></li>
+                    <li><a href="#">&nbsp;</a></li>
+                    <li><a href="#">&nbsp;</a></li>
+                    <li><a href="#">&nbsp;</a></li>
+                    <li><a href="#" class="view-more">&nbsp;</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-features">
+            <div class="feature">
+                <span>₹</span> COD Available
+            </div>
+            <div class="feature">
+                <span>↻</span> 30 Days Easy Returns & Exchanges
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const arrow = this.querySelector('.faq-arrow');
+                if (arrow.textContent === '⌄') {
+                    arrow.textContent = '⌃';
+                } else {
+                    arrow.textContent = '⌄';
+                }
+            });
+        });
+
+        // Category selection
+        document.querySelectorAll('.faq-category').forEach(category => {
+            category.addEventListener('click', function() {
+                document.querySelectorAll('.faq-category').forEach(cat => cat.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

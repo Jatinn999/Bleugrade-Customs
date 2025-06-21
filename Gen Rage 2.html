@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Souled Store - Naruto Shippuden: Jiraiya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f8f8;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #ff4444;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4444;
+            text-decoration: none;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            width: 300px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box:focus {
+            border-color: #ff4444;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .icon-btn:hover {
+            color: #ff4444;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: #ff4444;
+        }
+        
+        /* Main Product Section */
+        .product-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .product-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .product-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .oversized-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .product-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .product-category {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mrp-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        
+        .size-selection {
+            margin-bottom: 2rem;
+        }
+        
+        .size-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .size-chart-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .size-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .size-btn {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .size-btn:hover, .size-btn.selected {
+            border-color: #ff4444;
+            background: #ff4444;
+            color: white;
+        }
+        
+        .quantity-section {
+            margin-bottom: 2rem;
+        }
+        
+        .quantity-label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .quantity-select {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            background: white;
+            font-size: 1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .add-to-cart-btn {
+            flex: 1;
+            padding: 1rem;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            background: #e03333;
+        }
+        
+        .wishlist-btn {
+            padding: 1rem;
+            background: white;
+            color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .wishlist-btn:hover {
+            background: #007bff;
+            color: white;
+        }
+        
+        .share-section {
+            margin-bottom: 2rem;
+        }
+        
+        .share-icons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .share-icon {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .share-icon:hover {
+            background: #f0f0f0;
+        }
+        
+        .delivery-section {
+            border-top: 1px solid #e0e0e0;
+            padding-top: 2rem;
+        }
+        
+        .delivery-input {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .pincode-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+        }
+        
+        .check-btn {
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .return-policy {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Product Details Section */
+        .details-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .details-header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .details-content {
+            padding: 1.5rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .detail-item {
+            margin-bottom: 1rem;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .detail-value {
+            color: #666;
+        }
+        
+        /* Pair It With Section */
+        .pair-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .pair-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        
+        .pair-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .pair-item {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .pair-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pair-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .pair-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .pair-category {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pair-price {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-top {
+            background: #ff4444;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-brand {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-tagline {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: #ff4444;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .app-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .app-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .app-btn {
+            display: inline-block;
+        }
+        
+        .app-btn img {
+            height: 50px;
+        }
+        
+        .social-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .social-icon.facebook { background: #3b5998; }
+        .social-icon.instagram { background: #e4405f; }
+        .social-icon.youtube { background: #ff0000; }
+        .social-icon.twitter { background: #1da1f2; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .app-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="nav-menu">
+                <a href="#" onclick="showMenu()">&nbsp;</a>
+                <a href="#">MEN</a>
+                <a href="#">WOMEN</a>
+                <a href="#">SNEAKERS</a>
+            </div>
+            
+            <a href="#" class="logo">Bleugrade&nbsp;</a>
+            
+            <div class="header-right">
+                <input type="text" class="search-box" placeholder="What are you looking for?">
+                <button class="icon-btn">&nbsp;</button>
+                <button class="icon-btn">&nbsp;</button>
+                <button class="icon-btn"><img src="images/Orders icon.png" width="40" height="40" alt=""/>&nbsp;</button>
+                <button class="icon-btn"><img src="images/profile icon.png" width="40" height="40" alt=""/>&nbsp;</button>
+                <button class="icon-btn"><img src="images/Like Icon.png" width="40" height="40" alt=""/>&nbsp;</button>
+                <button class="icon-btn"><img src="images/Kart icon.png" width="40" height="40" alt=""/>&nbsp;</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="#">Home</a> / <a href="#">Sneakers</a> / <a href="#">Naruto Nike AF1 Highs</a> 
+    </nav>
+
+    <!-- Main Product Section -->
+    <div class="product-container">
+        <div class="product-images">
+          <div style="position: relative;">
+            <img src="images/Naruto Nikr Af 1 Banner.jpg" alt="Naruto Jiraiya Shirt Back" class="product-image">
+                <div class="oversized-tag">Nike AF1</div>
+            </div>
+            <img src="images/Product 1 Img 2.jpg" alt="Naruto Jiraiya Shirt Front" class="product-image">
+            <img src="images/Product 1 img 3.jpg" alt="Style Shot" class="product-image">
+            <img src="images/Product 1 img 4.jpg" alt="Detail Shot" class="product-image">
+        </div>
+        
+        <div class="product-info">
+            <h1>Naruto Nike AF1 Highs</h1>
+            <div class="product-category">CUSTOM ON SIDES</div>
+            
+            <div class="price">₹ 12,400</div>
+            <div class="mrp-text">MRP incl. of all taxes</div>
+            
+            <div class="size-selection">
+                <div class="size-label">
+                    <span>Please select a size.</span>
+                    <a href="#" class="size-chart-link">SIZE CHART</a>
+                </div>
+                <div class="size-options">
+                    <button class="size-btn">3UK</button>
+                    <button class="size-btn">4UK</button>
+                    <button class="size-btn">5UK</button>
+                    <button class="size-btn">6UK</button>
+                    <button class="size-btn">7UK</button>
+                    <button class="size-btn">8UK&nbsp;</button>
+                    <button class="size-btn">9UK&nbsp;</button>
+                </div>
+            </div>
+            
+            <div class="quantity-section">
+                <div class="quantity-label">Quantity</div>
+                <select class="quantity-select">
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
+                    <option>04</option>
+                    <option>05</option>
+                </select>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="add-to-cart-btn" onclick="addToCart()">ADD TO CART</button>
+                <button class="wishlist-btn" onclick="addToWishlist()">ADD TO WISHLIST</button>
+            </div>
+            
+            <div class="share-section">
+                <div>Share</div>
+                <div class="share-icons">
+                    <div class="share-icon" onclick="shareProduct('facebook')"><img src="images/Fb icon.png" width="40" height="40" alt=""/></div>
+                    <div class="share-icon" onclick="shareProduct('twitter')"><img src="images/X icon.png" width="40" height="40" alt=""/>&nbsp;</div>
+                    <div class="share-icon" onclick="shareProduct('whatsapp')"><img src="images/Instagram Icon.png" width="40" height="40-" alt=""/>&nbsp;</div>
+                  
+              </div>
+            </div>
+            
+            <div class="delivery-section">
+                <h3>Delivery Details</h3>
+                <div class="delivery-input">
+                    <input type="text" class="pincode-input" placeholder="Enter Pincode">
+                    <button class="check-btn" onclick="checkDelivery()">CHECK</button>
+                </div>
+                
+                <div class="return-policy">
+                    This product is eligible for return or exchange under our 30-day return or exchange policy. No questions asked.
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="details-section">
+        <div class="details-header" onclick="toggleDetails()">
+            <span>Product Details</span>
+            <span>▼</span>
+        </div>
+        <div class="details-content" id="productDetails" style="display: block;">
+            <div>
+                <div class="detail-item">
+                    <div class="detail-label">Material  Care:</div>
+                    <div class="detail-value">100% Cotton (Poplin)<br>Machine Wash</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">Country of Origin:</div>
+                    <div class="detail-value">India (and proud)</div>
+                </div>
+            </div>
+            
+            <div>
+                <div class="detail-item">
+                    <div class="detail-label">Manufactured  Sold By:</div>
+                    <div class="detail-value">
+                        Bleugrade Pvt. Ltd.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>
+                        Bhopal - 462022<br>
+                        connect@Bleugrade.com<br>
+                        Customer care no. +91 22-68493328
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pair It With Section -->
+    <div class="pair-section">
+<h2 class="pair-title">Other Pairs</h2>
+        <div class="pair-items">
+            <div class="pair-item" onclick="viewProduct('kuromi-socks')">
+              <img src="images/Demon Slayer Af 1.png" alt="Hello Kitty: Kuromi Socks" class="pair-image">
+                <div class="pair-name">Demon Slayer Nike AF1</div>
+                <div class="pair-category">CUSTOM ON SIDES WITH REFLECTIVES</div>
+              <div class="pair-price">₹ 9,300</div>
+</div>
+            
+            <div class="pair-item" onclick="viewProduct('minions-socks')">
+                
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../js/popper.min.js"></script> 
+	<script src="../js/bootstrap-4.4.1.js"></script>
+  </body>
+</html>
